@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "formulariosReactivos"
+    }
+  },
+  "defaultProject": "formulariosReactivos",
+  "cli": {
+    "analytics": "52b6b06a-1fe5-4a09-bcd3-23d187a8b4b3"
+  }
 }

@@ -11,43 +11,76 @@ export class ReactiveComponent implements OnInit {
 
   constructor(private fb: FormBuilder) {
     this.crearFormulario();
+    this.cargarDataAlFormulario();
   }
 
   ngOnInit(): void {
   }
 
-  get nombreNoValido(){
+  get nombreNoValido() {
     return this.forma.get('nombre').invalid && this.forma.get('nombre').touched
   }
 
-  get apellidoNoValido(){
+  get apellidoNoValido() {
     return this.forma.get('apellido').invalid && this.forma.get('apellido').touched
   }
 
-  get correoNoValido(){
+  get correoNoValido() {
     return this.forma.get('correo').invalid && this.forma.get('correo').touched
   }
 
+  get distritoNoValido() {
+    return this.forma.get('direccion.distrito').invalid && this.forma.get('direccion.distrito').touched
+  }
+
+  get ciudadNoValido() {
+    return this.forma.get('direccion.ciudad').invalid && this.forma.get('direccion.ciudad').touched
+  }
+
+
+
   crearFormulario() {
     this.forma = this.fb.group({
-      nombre  : ['', [Validators.required, Validators.minLength(5)]],
+      nombre: ['', [Validators.required, Validators.minLength(5)]],
       apellido: ['', Validators.required],
-      correo  : ['', [Validators.email, Validators.required]],
+      correo: ['', [Validators.email, Validators.required]],
       direccion: this.fb.group({
         distrito: ['', Validators.required],
-        ciudad  : ['', Validators.required]
+        ciudad: ['', Validators.required]
       }),
     });
   }
 
-  guardar(){
+  cargarDataAlFormulario() {
+    this.forma.reset({
+      nombre: "juans",
+      apellido: "perez",
+      correo: "a@gmail.com",
+      direccion: {
+        distrito: "Ottawa",
+        ciudad: "Ontario"
+      }
+    });
+  }
+
+  guardar() {
     console.log(this.forma);
     if (this.forma.invalid) {
       Object.values(this.forma.controls).forEach(control => {
-        control.markAllAsTouched();
+        if (control instanceof FormGroup) {
+          Object.values(control.controls).forEach(control => control.markAllAsTouched());
+        } else {
+          control.markAllAsTouched();
+        }
 
       });
     }
+    // reseteo
+    this.forma.reset({
+      nombre: "Sin nombre"
+    });
   }
+
+
 
 }

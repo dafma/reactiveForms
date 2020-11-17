@@ -8,16 +8,10 @@
       <label class="col-2 col-form-label ">Nombre</label>
       <div class="col-8">
 
-        <input 
-          class="form-control" 
-          type="text" 
-          name="nombre" 
-          [class.is-invalid]="nombre.invalid && nombre.touched"
-          [ngModel]="usuario.nombre" 
-          required
-          placeholder="Nombre" 
-          required minlength="5" 
-          #nombre="ngModel">
+        <input class="form-control" type="text" name="nombre" [class.is-invalid]="nombre.invalid && nombre.touched"
+          [ngModel]="usuario.nombre" required placeholder="Nombre" required minlength="5" #nombre="ngModel">
+        <small *ngIf="nombre.invalid && nombre.touched" class="form-text text-danger">Ingrese 5 letras
+        </small>
       </div>
     </div>
 
@@ -25,7 +19,10 @@
       <label class="col-2 col-form-label">Apellido</label>
       <div class="col-8">
 
-        <input class="form-control" type="text" placeholder="Apellido">
+        <input class="form-control" [class.is-invalid]="apellido.invalid && apellido.touched" required name="apellido"
+          minlength="3" type="text" [ngModel]="usuario.apellido" #apellido="ngModel" placeholder="Apellido">
+        <small *ngIf="apellido.invalid && apellido.touched" class="form-text text-danger">Ingrese 5 letras
+        </small>
       </div>
     </div>
 
@@ -35,12 +32,10 @@
     <label class="col-2 col-form-label">Correo</label>
     <div class="col-8">
 
-      <input class="form-control" type="email" 
-        [class.is-invalid]="correo.invalid && correo.touched"
-        ngModel
-        name="correo"
-        #correo="ngModel"
-        placeholder="Correo electronico">
+      <input class="form-control" type="email" [class.is-invalid]="correo.invalid && correo.touched"
+        [ngModel]="usuario.email" name="correo" #correo="ngModel" placeholder="Correo electronico">
+      <small *ngIf="correo.invalid && correo.touched" class="form-text text-danger">El correo es obligatorio
+      </small>
 
     </div>
   </div>

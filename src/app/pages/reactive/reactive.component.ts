@@ -33,6 +33,10 @@ export class ReactiveComponent implements OnInit {
       nombre  : ['', [Validators.required, Validators.minLength(5)]],
       apellido: ['', Validators.required],
       correo  : ['', [Validators.email, Validators.required]],
+      direccion: this.fb.group({
+        distrito: ['', Validators.required],
+        ciudad  : ['', Validators.required]
+      }),
     });
   }
 

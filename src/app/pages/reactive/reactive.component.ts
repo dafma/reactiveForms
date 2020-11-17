@@ -16,6 +16,7 @@ export class ReactiveComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
   get pasatiempos(){
     return this.forma.get('pasatiempos') as FormArray;
   }
@@ -51,9 +52,7 @@ export class ReactiveComponent implements OnInit {
         distrito: ['', Validators.required],
         ciudad: ['', Validators.required]
       }),
-      pasatiempos: this.fb.array([
-        [], [], [], [], []
-      ])
+      pasatiempos: this.fb.array([])
     });
   }
 
@@ -67,6 +66,18 @@ export class ReactiveComponent implements OnInit {
         ciudad: "Ontario"
       }
     });
+    // cargar datos al array
+    ['Comer', 'Dormir'].forEach(valor => this.pasatiempos.push(this.fb.control(valor)));
+  }
+
+  agregarPasatiempo(){
+    // accion o evento al boton agregar
+    this.pasatiempos.push( this.fb.control(''));
+  }
+
+  borrarPasatiempo(i: number){
+    // elimina pasatiempo del array
+    this.pasatiempos.removeAt(i);
   }
 
   guardar() {

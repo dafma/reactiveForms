@@ -41,6 +41,36 @@
   </div>
 
 
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Pais</label>
+    <div class="col-8">
+      <select [disabled]="paises.length === 0" [ngModel]="usuario.pais" name="pais" required
+        class="form-control" [class.is-invalid]="pais.invalid && pais.touched" #pais="ngModel">
+        <option *ngFor="let pais of paises" [value]="pais.codigo">
+          {{ pais.nombre }}
+        </option>
+      </select>
+      <small *ngIf="pais.invalid && pais.touched" class="form-text text-danger">El correo es obligatorio
+      </small>
+    </div>
+  </div>
+
+  
+  <div class="form-group row">
+    <label class="col-2 col-form-label">Genero</label>
+    <div class="col-8">
+      <div class="form-check form-check-inline">
+        <input type="text" class="form-check-input" type="radio"
+          name="genero" ngModel value="M" required #genero="ngModel" [class.is-invalid]="genero.invalid && genero.touched"
+          >
+        <label class="form-check-label">Masculino</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input type="text" class="form-check-input" type="radio" name="genero" ngModel value="F" required #genero="ngModel" [class.is-invalid]="genero.invalid && genero.touched">
+        <label class="form-check-label">Femenino</label>
+      </div>
+    </div>
+  </div>  
 
   <div class="form-group row">
     <label class="col-2 col-form-label">&nbsp;</label>

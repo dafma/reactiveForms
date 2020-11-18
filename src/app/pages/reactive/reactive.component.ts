@@ -18,7 +18,7 @@ export class ReactiveComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  get pasatiempos(){
+  get pasatiempos() {
     return this.forma.get('pasatiempos') as FormArray;
   }
 
@@ -51,9 +51,11 @@ export class ReactiveComponent implements OnInit {
     const pass1 = this.forma.get('pass1').value;
     const pass2 = this.forma.get('pass2').value;
 
-    return(pass1 === pass2 ) ? false : true;
+    return (pass1 === pass2) ? false : true;
+  }
 
-
+  get usuarioNoValido() {
+    return this.forma.get('usuario').invalid && this.forma.get('usuario').touched
   }
 
   crearFormulario() {
@@ -61,14 +63,15 @@ export class ReactiveComponent implements OnInit {
       nombre: ['', [Validators.required, Validators.minLength(5)]],
       apellido: ['', [Validators.required, this.validadores.noHerrera]],
       correo: ['', [Validators.email, Validators.required]],
-      pass1 : ['', Validators.required],
-      pass2 : ['', Validators.required],
+      usuario: ['', Validators.required, this.validadores.existeUsuario],
+      pass1: ['', Validators.required],
+      pass2: ['', Validators.required],
       direccion: this.fb.group({
         distrito: ['', Validators.required],
         ciudad: ['', Validators.required]
       }),
       pasatiempos: this.fb.array([])
-    },{
+    }, {
       validators: this.validadores.passwordsIguales('pass1', 'pass2')
     });
   }
@@ -87,12 +90,12 @@ export class ReactiveComponent implements OnInit {
     ['Comer', 'Dormir'].forEach(valor => this.pasatiempos.push(this.fb.control(valor)));
   }
 
-  agregarPasatiempo(){
+  agregarPasatiempo() {
     // accion o evento al boton agregar
-    this.pasatiempos.push( this.fb.control(''));
+    this.pasatiempos.push(this.fb.control(''));
   }
 
-  borrarPasatiempo(i: number){
+  borrarPasatiempo(i: number) {
     // elimina pasatiempo del array
     this.pasatiempos.removeAt(i);
   }
